@@ -19,16 +19,18 @@
         <!--<button type="button" class="delete" title="delete hero"
         (click)="delete(hero)">x</button>-->
     </li>
+    <mat-paginator length="1562" [pageSize]="20" (page)=" getPaginado($event)" aria-label="Select page" ></mat-paginator>
+
 </ul>
-<div>
+<!-- <div>
     <label for="new-hero">Hero name: </label>
     <input id="new-hero" #heroName />
     
-    <!-- (click) passes input value to add() and then clears the input -->
+    (click) passes input value to add() and then clears the input -->
     <!--<button type="button" class="add-button" (click)="add(heroName.value); heroName.value=''">
         Add hero
-    </button>-->
+    </button>
 
-    </div>
+    </div> -->
     
 <app-hero-detail [hero]="selectedHero"></app-hero-detail>

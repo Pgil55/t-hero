@@ -1,5 +1,7 @@
 <h2>Top Heroes</h2>
+<app-hero-search></app-hero-search>
 <div class="heroes-menu">
+    
     <a *ngFor="let hero of heroes" routerLink="/detail/{{hero.id}}">
         <img src="{{hero.thumbnail.path}}.{{hero.thumbnail.extension}}" alt="">
         {{hero.name}},
@@ -7,4 +9,3 @@
 
     </a>
 </div>
-<app-hero-search></app-hero-search>

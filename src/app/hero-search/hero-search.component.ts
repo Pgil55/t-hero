@@ -8,7 +8,7 @@ import {
 
 import { Hero } from '../heroes/hero';
 import { HeroService } from '../hero.service';
-import { Heroes } from '../interfaces/heroes.interface';
+import { Heroes, Result } from '../interfaces/heroes.interface';
 
 @Component({
   selector: 'app-hero-search',
@@ -16,7 +16,7 @@ import { Heroes } from '../interfaces/heroes.interface';
   styleUrls: [ './hero-search.component.css' ]
 })
 export class HeroSearchComponent implements OnInit {
-  heroes$!: Observable<Heroes>;
+  heroes$!: Observable<Result[]>;
   private searchTerms = new Subject<string>();
 
   constructor(private heroService: HeroService) {}

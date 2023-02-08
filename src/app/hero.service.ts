@@ -5,7 +5,8 @@ import { Observable, of } from 'rxjs';
 import { MessageService } from './message.service'; 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
-import { Heroes } from './interfaces/heroes.interface';
+import { Heroes, Result } from './interfaces/heroes.interface';
+import { Data } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,9 @@ import { Heroes } from './interfaces/heroes.interface';
 export class HeroService {
 
   private Url: string = ' http://gateway.marvel.com/v1/public/characters';
-  private api:string = '?ts=patata&apikey=53557f0a483061ca4166329dfafcb05a&hash=6c2dc921a3de99a5837944f4f9e8579b';
+  private api:string = 'ts=patata&apikey=53557f0a483061ca4166329dfafcb05a&hash=6c2dc921a3de99a5837944f4f9e8579b';
+
+
 
   constructor(private messageService: MessageService,
     private http: HttpClient,
@@ -28,9 +31,27 @@ export class HeroService {
     };
     
     getAllHeroes(): Observable<Heroes> {
-      return this.http.get<Heroes>(this.Url + this.api)
+      return this.http.get<Heroes>(this.Url +'?' +this.api)
         .pipe(map((data: Heroes  ) =>data)); 
         
+    }
+    getRandomHeroes(): Observable<Heroes> {
+      const random = Math.random() * 1562;
+      const url = `${this.Url}?offset=${random}&${this.api}`;
+      return this.http.get<Heroes>(url)
+        .pipe(map((data: Heroes  ) =>data)); 
+        
+    }
+  
+    getTotalHeroes(offset:number): Observable<Heroes> {
+
+      const url = `${this.Url}?offset=${offset}&${this.api}`;
+
+      return this.http.get<Heroes>(url)
+      .pipe(
+        map((data: Heroes)  => data)
+        
+      );
     }
 
     
@@ -71,7 +92,7 @@ getHeroes(): Observable<Hero[]> {
 }
 /** GET hero by id. Will 404 if id not found */
 getHero(id: number): Observable<Heroes> {
-  const url = `${this.Url}/${id}${this.api}`;
+  const url = `${this.Url}/${id}?${this.api}`;
   return this.http.get<Heroes>(url).pipe(
     tap(_ => this.log(`fetched hero id=${id}`)),
     catchError(this.handleError<Heroes>(`getHero id=${id}`))
@@ -116,17 +137,21 @@ deleteHero(id: number): Observable<Hero> {
 }
 
   /* GET heroes whose name contains search term */
-  searchHeroes(term: string): Observable<Heroes> {
+  searchHeroes(term: string): Observable<Result[]> {
     if (!term.trim()) {
       // if not search term, return empty hero array.
       return of();
     }
-    return this.http.get<Heroes>(`${this.Url}/?nameStartsWith=${term}&limit=5&${this.api}`).pipe(
-      tap(x => x ?
+    return this.http.get<Heroes>(`${this.Url}?${this.api}&nameStartsWith=${term}&limit=5`).pipe(
+      map((data:Heroes)=> {
+        console.log(data.data.results);
+        return data.data.results;
+      }))
+      /*tap(x => x ?
         this.log(`found heroes matching "${term}"`) :
         this.log(`no heroes matching "${term}"`)),
-      catchError(this.handleError<Heroes>('searchHeroes'))
-    );
+      catchError(this.handleError<Result>('searchHeroes'))
+    );*/
   }
 
 /**

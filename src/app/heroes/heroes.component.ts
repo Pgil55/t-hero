@@ -4,6 +4,8 @@ import { Hero } from './hero';
 import { HeroService } from '../hero.service';
 import { MessageService } from '../message.service';
 import { Result } from '../interfaces/heroes.interface';
+import { PageEvent } from '@angular/material/paginator';
+
 
 @Component({
   selector: 'app-heroes',
@@ -28,7 +30,19 @@ export class HeroesComponent implements OnInit {
   }
 
   getHeroes(): void {
+    
     this.heroService.getAllHeroes()
+        .subscribe(heroes => this.heroes = heroes.data.results);
+  }
+
+  getPaginado(e:PageEvent): void {
+    const offset = e.pageIndex * e.pageSize ;
+    this.heroService.getTotalHeroes(offset)
+        .subscribe(heroes => this.heroes = heroes.data.results);
+  }
+  getSiguiente(offset= 0): void {
+    //const offset = this.heroes.length;
+    this.heroService.getTotalHeroes(offset)
         .subscribe(heroes => this.heroes = heroes.data.results);
   }
 

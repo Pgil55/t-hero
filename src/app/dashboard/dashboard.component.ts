@@ -18,7 +18,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getHeroes(): void {
-    this.heroService.getAllHeroes()
+    this.heroService.getRandomHeroes()
     .subscribe(heroes => this.heroes = heroes.data.results);
 
   }
