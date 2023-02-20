@@ -1,10 +1,10 @@
 <div id="search-component">
-    <label for="search-box">Hero Search</label>
-    <input #searchBox id="search-box" (input)="search(searchBox.value)" />
+    <label for="search-box" class="block font-bold text-base  m-1 mb-2 text-blue-400">Buscador de Heroes</label>
+    <input #searchBox id="search-box" (input)="search(searchBox.value)" class="w-full p-3 max-w-md box-border block focus:outline-1" />
 
-    <ul class="search-result">
-        <li *ngFor="let hero of heroes$ | async">
-            <a routerLink="/detail/{{hero.id}}">
+    <ul class="search-result mt-0 pl-0 absolute" >
+        <li *ngFor="let hero of heroes$ | async" class="list-none ">
+            <a routerLink="/detail/{{hero.id}}" class="rounded block w-full max-w-md p-5 border-solid text-white hover:bg-gray-600 hover:text-white ">
                 {{hero.name}}
             </a>
         </li>

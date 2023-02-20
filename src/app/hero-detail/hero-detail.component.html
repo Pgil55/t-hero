@@ -1,11 +1,23 @@
 <div *ngIf="hero">
 
-    <h2>{{hero.name | uppercase}} Details</h2>
-    <div><span>id: </span>{{hero.id}}</div>
-    <div>
-        <h2>{{hero.name}}</h2>
-        <img src="{{hero.thumbnail.path}}.{{hero.thumbnail.extension}}" alt="">
-        <p>{{hero.description}}</p>
-    <button type="button" (click)="goBack()">go back</button>
-    <!-- <button type="button" (click)="save()">save</button> -->
+    
+    
+    <div class="bg-gray-800 h-screen flex flex-col justify-center items-center">
+        <div class="bg-gray-600 p-8 rounded-lg shadow-md max-w-xl w-full">
+            <div class="flex justify-center items-center">
+                <img class="h-40 w-40 object-cover rounded-full hover:animate-spin" src="{{hero.thumbnail.path}}.{{hero.thumbnail.extension}}"
+                    alt="">
+            </div>
+            <div class="mt-8">
+                <h2 class="text-2xl font-bold mb-2">Name: {{hero.name}}</h2>
+                <h3 class="text-lg font-bold mb-2">Id: {{hero.id}}</h3>
+                <p class="text-gray-600 text-base">{{hero.description}}</p>
+                <button class="bg-yellow-300 hover:bg-green-500 text-black font-bold py-2 px-4 mt-4 rounded" type="button"
+                    (click)="goBack()">Go back</button>
+            </div>
+        </div>
+    </div>
+        
+
+    
 </div>

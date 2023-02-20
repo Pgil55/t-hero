@@ -1,36 +1,19 @@
 
-<!--<h2>{{hero.name | uppercase}} Details</h2>
-<div> id:<span></span>{{hero.id}}</div>
-<div>
-    <label for="name">Hero name:</label>
-    <input id="name" [(ngModel)]="hero.name" placeholder="name">
-</div>-->
 
-<h2>My heroes</h2>
-<ul class="heroes">
-    <li *ngFor="let hero of heroes">
-        <!--<button [class.selected]="hero === selectedHero" type="button" (click)="onSelect(hero)" >
-            <span class="badge"> {{hero.id}}</span>
-            <span class="name">{{hero.name}}</span>
-        </button>-->
-        <a routerLink="/detail/{{hero.id}}">
-            <span class="badge">{{hero.id}}</span> {{hero.name}}
-        </a>
-        <!--<button type="button" class="delete" title="delete hero"
-        (click)="delete(hero)">x</button>-->
-    </li>
-    <mat-paginator length="1562" [pageSize]="20" (page)=" getPaginado($event)" aria-label="Select page" ></mat-paginator>
+<h2 class="text-2xl font-bold text-center text-blue-700 uppercase">My heroes</h2>
+<div class="flex flex-wrap items-center justify-center mt-8">
+    <ul class="w-1/2">
+        <li *ngFor="let hero of heroes" class="p-4 hover:bg-yellow-200 hover:rounded">
+            <a routerLink="/detail/{{hero.id}}" class="text-yellow-200 hover:text-yellow-500 ">
+                <p class="flex items-center text-xl font-medium">
+                    <span class="bg-red-500 text-white rounded-full px-3 py-1">{{hero.id}}</span>
+                    {{hero.name}}
+                </p> 
+            </a>
+        </li>
+    </ul>
+</div>
+<mat-paginator length="1563" [pageSize]="20" (page)=" getPaginado($event)" aria-label="Select page" class="text-center mt-8 text-white"></mat-paginator>
 
-</ul>
-<!-- <div>
-    <label for="new-hero">Hero name: </label>
-    <input id="new-hero" #heroName />
-    
-    (click) passes input value to add() and then clears the input -->
-    <!--<button type="button" class="add-button" (click)="add(heroName.value); heroName.value=''">
-        Add hero
-    </button>
-
-    </div> -->
     
 <app-hero-detail [hero]="selectedHero"></app-hero-detail>
